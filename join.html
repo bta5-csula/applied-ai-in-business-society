@@ -36,20 +36,30 @@
 
   <body>
     <!-- NAV -->
-    <nav>
+    <nav aria-label="Primary navigation">
       <a href="index.html" class="nav-logo">
-        <img src="img/aabs_mark_gold.png" alt="AABS circuit-brain emblem" style="height: 42px; width: 42px; object-fit: contain;" />
+        <img src="img/aabs_mark_gold.png" alt="AABS circuit-brain emblem" />
         AABS
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#focus">Focus Areas</a></li>
-        <li><a href="index.html#team">Leadership</a></li>
-        <li><a href="index.html#projects">Initiatives</a></li>
+        <li><a href="index.html#about" onclick="closeMenu()">About</a></li>
+        <li><a href="index.html#focus" onclick="closeMenu()">Focus Areas</a></li>
+        <li><a href="index.html#team" onclick="closeMenu()">Leadership</a></li>
+        <li><a href="index.html#projects" onclick="closeMenu()">Initiatives</a></li>
         <li>
-          <a href="index.html" class="nav-cta">Back to Main Site</a>
+          <a href="index.html" class="nav-cta" onclick="closeMenu()">Back to Main Site</a>
         </li>
       </ul>
+      <button
+        class="nav-hamburger"
+        id="hamburger"
+        aria-label="Toggle menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+        onclick="toggleMenu()"
+      >
+        <span></span><span></span><span></span>
+      </button>
     </nav>
 
     <main style="padding-top: 120px; padding-bottom: 80px;">
@@ -251,6 +261,28 @@
     </footer>
 
     <script>
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        const hamburger = document.getElementById("hamburger");
+        const isOpen = navLinks.classList.toggle("open");
+        hamburger.classList.toggle("open", isOpen);
+        hamburger.setAttribute("aria-expanded", String(isOpen));
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      }
+
+      function closeMenu() {
+        const navLinks = document.getElementById("navLinks");
+        const hamburger = document.getElementById("hamburger");
+        navLinks.classList.remove("open");
+        hamburger.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+
       const APPS_SCRIPT_URL =
         "https://script.google.com/macros/s/AKfycbx768v3yugq5GSvxOYyS97NtPg2u2_vqmB4QkhQu68-aR-zW_BCnYWhblNRmTEnbVCm/exec";
 

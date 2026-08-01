@@ -58,7 +58,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 48px;
+      min-height: 72px;
+      padding: 0 48px;
       background: rgba(8, 11, 16, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border2);
@@ -67,7 +68,7 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: "Syne", sans-serif;
       font-weight: 800;
       font-size: 16px;
@@ -78,19 +79,21 @@
     }
 
     .nav-logo img {
-      height: 42px;
-      width: 42px;
+      height: 36px;
+      width: 36px;
       object-fit: contain;
       vertical-align: middle;
     }
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      align-items: center;
+      gap: clamp(20px, 2.4vw, 36px);
       list-style: none;
     }
 
     .nav-links a {
+      display: inline-block;
       color: var(--text-dim);
       text-decoration: none;
       font-size: 11px;
@@ -122,6 +125,10 @@
       color: var(--bg) !important;
     }
 
+    .nav-hamburger {
+      display: none;
+    }
+
     /* HERO */
     .hero {
       position: relative;
@@ -137,10 +144,10 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(240px, 0.65fr);
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
       align-items: center;
-      gap: clamp(48px, 7vw, 112px);
-      width: min(100%, 1200px);
+      gap: clamp(16px, 4vw, 56px);
+      width: min(100%, 1240px);
     }
 
     .hero-copy {
@@ -217,19 +224,24 @@
       font-size: clamp(56px, 6.5vw, 92px);
     }
 
+    .hero-heading-line {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
     .hero-logo {
-      width: clamp(220px, 25vw, 330px);
+      width: clamp(300px, 31vw, 440px);
       aspect-ratio: 1;
       object-fit: contain;
-      justify-self: center;
-      opacity: 0.78;
+      justify-self: start;
+      opacity: 0.82;
     }
 
     .hero-sub {
       font-size: 13px;
       color: var(--text-dim);
       max-width: 620px;
-      margin: 28px 0 48px;
+      margin: 16px 0 44px;
       line-height: 1.9;
       letter-spacing: 0.02em;
     }
@@ -1001,7 +1013,7 @@
     /* TICKER */
     .ticker-wrap {
       position: fixed;
-      top: 69px;
+      top: 72px;
       left: 0;
       right: 0;
       z-index: 99;
@@ -1050,7 +1062,17 @@
 
     @media (max-width: 900px) {
       nav {
-        padding: 16px 24px;
+        min-height: 64px;
+        padding: 0 24px;
+      }
+
+      .nav-logo img {
+        height: 32px;
+        width: 32px;
+      }
+
+      .ticker-wrap {
+        top: 64px;
       }
 
       .nav-links {
@@ -1134,8 +1156,8 @@
       }
 
       .hero-layout {
-        grid-template-columns: minmax(0, 1fr) 190px;
-        gap: 32px;
+        grid-template-columns: minmax(0, 1fr) 240px;
+        gap: 18px;
       }
 
       .hero-copy h1 {
@@ -1171,7 +1193,7 @@
 
       .hero-logo {
         display: block;
-        width: 190px;
+        width: 240px;
       }
 
       .events-header {
@@ -1194,7 +1216,7 @@
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 820px) {
       .hero-layout {
         display: block;
       }
@@ -1209,7 +1231,3 @@
       }
     }
 
-    /* Hide hamburger on desktop */
-    .nav-hamburger {
-      display: none;
-    }

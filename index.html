@@ -58,15 +58,11 @@
 
   <body>
     <!-- NAV -->
-    <nav>
-      <a
-        href="#"
-        class="nav-logo"
-        style="display: flex; align-items: center; gap: 10px"
+    <nav aria-label="Primary navigation">
+      <a href="#home" class="nav-logo"
         ><img
           src="img/aabs_mark_gold.png"
-          alt="AABS Logo"
-          style="height: 42px; width: 42px; object-fit: contain"
+          alt="AABS circuit-brain emblem"
         />AABS</a
       >
       <ul class="nav-links" id="navLinks">
@@ -83,6 +79,8 @@
         class="nav-hamburger"
         id="hamburger"
         aria-label="Toggle menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
         onclick="toggleMenu()"
       >
         <span></span><span></span><span></span>
@@ -116,7 +114,9 @@
         <div class="hero-layout">
           <div class="hero-copy">
             <div class="hero-tag">Cal State LA Student Organization</div>
-            <h1>Applied AI<br /><em>in Business</em><br />Society</h1>
+            <h1>
+              Applied AI<br /><span class="hero-heading-line"><em>in Business</em> Society</span>
+            </h1>
             <p class="hero-sub">
               We help local businesses adopt practical AI tools to streamline work, while building dedicated campus compute infrastructure for student research and community projects.
             </p>
@@ -126,7 +126,7 @@
             </div>
           </div>
           <img
-            src="img/aabs_mark_gold.png"
+            src="img/aabs_mark_gold_hero.png"
             alt="AABS circuit-brain emblem"
             class="hero-logo"
           />
@@ -662,8 +662,10 @@
       function toggleMenu() {
         const navLinks = document.getElementById("navLinks");
         const hamburger = document.getElementById("hamburger");
-        navLinks.classList.toggle("open");
-        hamburger.classList.toggle("open");
+        const isOpen = navLinks.classList.toggle("open");
+        hamburger.classList.toggle("open", isOpen);
+        hamburger.setAttribute("aria-expanded", String(isOpen));
+        document.body.style.overflow = isOpen ? "hidden" : "";
       }
 
       function closeMenu() {
@@ -671,10 +673,16 @@
         const hamburger = document.getElementById("hamburger");
         navLinks.classList.remove("open");
         hamburger.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
       }
 
       document.addEventListener("DOMContentLoaded", () => {
         renderEvents();
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeMenu();
+        });
 
         const observer = new IntersectionObserver(
           (entries) => {
