@@ -133,6 +133,20 @@
       overflow: hidden;
     }
 
+    .hero-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(240px, 0.65fr);
+      align-items: center;
+      gap: clamp(48px, 7vw, 112px);
+      width: min(100%, 1200px);
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
     .hero-orb {
       position: absolute;
       width: 600px;
@@ -198,10 +212,23 @@
       color: var(--gold);
     }
 
+    .hero-copy h1 {
+      max-width: 760px;
+      font-size: clamp(56px, 6.5vw, 92px);
+    }
+
+    .hero-logo {
+      width: clamp(220px, 25vw, 330px);
+      aspect-ratio: 1;
+      object-fit: contain;
+      justify-self: center;
+      opacity: 0.78;
+    }
+
     .hero-sub {
       font-size: 13px;
       color: var(--text-dim);
-      max-width: 480px;
+      max-width: 620px;
       margin: 28px 0 48px;
       line-height: 1.9;
       letter-spacing: 0.02em;
@@ -311,10 +338,12 @@
     }
 
     .hero-stats {
+      position: relative;
+      z-index: 1;
       display: flex;
       gap: 48px;
-      margin-top: auto;
-      padding-top: 48px;
+      margin-top: clamp(56px, 8vh, 88px);
+      max-width: 760px;
     }
 
 
@@ -1104,9 +1133,18 @@
         padding: 128px 24px 80px;
       }
 
-      .hero-stats {
-        left: 24px;
+      .hero-layout {
+        grid-template-columns: minmax(0, 1fr) 190px;
         gap: 32px;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(50px, 8vw, 72px);
+      }
+
+      .hero-stats {
+        gap: 32px;
+        margin-top: 56px;
       }
 
       .about-grid {
@@ -1132,7 +1170,8 @@
       }
 
       .hero-logo {
-        display: none;
+        display: block;
+        width: 190px;
       }
 
       .events-header {
@@ -1152,6 +1191,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-layout {
+        display: block;
+      }
+
+      .hero-logo {
+        display: none;
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        row-gap: 24px;
       }
     }
 
