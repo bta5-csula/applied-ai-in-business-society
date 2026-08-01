@@ -84,7 +84,7 @@
               action="https://formspree.io/f/mlgpbwvd"
               method="POST"
             >
-              <input type="text" name="_gotcha" style="display: none" />
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display: none" />
 
               <div class="form-group">
                 <label for="fullName">Full Name</label>
@@ -94,6 +94,7 @@
                   name="Full Name"
                   class="form-control"
                   placeholder="Jane Doe"
+                  autocomplete="name"
                   required
                 />
               </div>
@@ -106,6 +107,7 @@
                   name="Email"
                   class="form-control"
                   placeholder="jdoe@student.calstatela.edu"
+                  autocomplete="email"
                   required
                 />
               </div>
@@ -157,6 +159,9 @@
 
             <div
               id="joinSuccess"
+              role="status"
+              aria-live="polite"
+              tabindex="-1"
               style="
                 display: none;
                 padding: 16px;
@@ -169,11 +174,14 @@
                 border-radius: 2px;
               "
             >
-              Thank you for applying! Your registration has been received. We will follow up via email with meeting details and project placement.
+              Thank you for applying! Your registration has been received. Please watch your university email for next steps from AABS.
             </div>
 
             <div
               id="joinError"
+              role="alert"
+              aria-live="assertive"
+              tabindex="-1"
               style="
                 display: none;
                 padding: 16px;
@@ -297,6 +305,7 @@
 
           btn.textContent = "Submitting...";
           btn.disabled = true;
+          btn.setAttribute("aria-busy", "true");
           document.getElementById("joinError").style.display = "none";
 
           const formData = new FormData(form);
@@ -319,16 +328,21 @@
             });
 
             if (response.ok) {
+              btn.removeAttribute("aria-busy");
               form.style.display = "none";
               const successDiv = document.getElementById("joinSuccess");
               successDiv.style.display = "block";
+              successDiv.focus();
             } else {
               throw new Error("Form submission error");
             }
           } catch (error) {
-            document.getElementById("joinError").style.display = "block";
+            const errorDiv = document.getElementById("joinError");
+            errorDiv.style.display = "block";
+            errorDiv.focus();
             btn.textContent = originalBtnText;
             btn.disabled = false;
+            btn.removeAttribute("aria-busy");
           }
         });
     </script>
