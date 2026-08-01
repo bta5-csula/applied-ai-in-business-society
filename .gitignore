@@ -1,0 +1,12 @@
+# Member record-keeping files (not part of the website)
+Angel's Project Files/
+Brian's Project Files/
+WEBSITE_RECOMMENDATIONS.md
+issues_overview_report.csv
+img/saies_logo_icon_original.png
+
+# Claude Code settings
+.claude/
+
+# Node dependencies
+node_modules/

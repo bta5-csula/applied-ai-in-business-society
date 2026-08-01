@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/</loc>
+    <loc>https://applied-ai-in-business-society.vercel.app/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/diagram-maker.html</loc>
+    <loc>https://applied-ai-in-business-society.vercel.app/join.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://applied-ai-in-business-society.vercel.app/diagram-maker.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/financial-analysis.html</loc>
+    <loc>https://applied-ai-in-business-society.vercel.app/financial-analysis.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/techflow_project_v2/dist/index.html</loc>
+    <loc>https://applied-ai-in-business-society.vercel.app/techflow_project_v2/dist/index.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/techflow_project_v1/dist/index.html</loc>
+    <loc>https://applied-ai-in-business-society.vercel.app/ledger_lens_project/dist/index.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/ledger_lens_project/dist/index.html</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://society-for-ai-in-enterprise-systems.vercel.app/audit_analytics_project/dist/index.html</loc>
+    <loc>https://applied-ai-in-business-society.vercel.app/audit_analytics_project/dist/index.html</loc>
     <priority>0.7</priority>
   </url>
 </urlset>

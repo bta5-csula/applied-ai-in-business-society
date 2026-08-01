@@ -7,9 +7,9 @@
     }
 
     :root {
-      --bg: #080b10;
-      --bg2: #0d1117;
-      --bg3: #111820;
+      --bg: #09101d;
+      --bg2: #0e1728;
+      --bg3: #131e33;
       --gold: #c8a96e;
       --gold2: #e8c98a;
       --gold-dim: rgba(200, 169, 110, 0.15);
@@ -65,6 +65,9 @@
     }
 
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: "Syne", sans-serif;
       font-weight: 800;
       font-size: 16px;
@@ -72,6 +75,13 @@
       color: var(--gold);
       text-transform: uppercase;
       text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 42px;
+      width: 42px;
+      object-fit: contain;
+      vertical-align: middle;
     }
 
     .nav-links {
@@ -192,9 +202,60 @@
       font-size: 13px;
       color: var(--text-dim);
       max-width: 480px;
-      margin: 28px 0 48px;
+      margin: 14px 0 32px;
       line-height: 1.9;
       letter-spacing: 0.02em;
+    }
+
+    /* JOIN PAGE STYLES */
+    .join-page-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      max-width: 1100px;
+      margin: 40px auto 0;
+    }
+
+    .join-panel {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: 14px 16px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--gold);
+    }
+
+    @media (max-width: 900px) {
+      .join-page-container {
+        grid-template-columns: 1fr;
+      }
     }
 
     .hero-actions {
@@ -376,6 +437,17 @@
     }
 
     /* --- PROJECTS SECTION --- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .project-card {
       background-color: var(--bg2);
       background-image:
@@ -660,11 +732,19 @@
     }
 
     .team-grid-bottom {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
+      display: flex;
+      justify-content: center;
       margin-top: 2px;
-      max-width: calc(66.666% + 1px);
+    }
+
+    .team-grid-bottom .member-card {
+      width: calc(33.333% - 1.33px);
+    }
+
+    @media (max-width: 900px) {
+      .team-grid-bottom .member-card {
+        width: 100%;
+      }
     }
 
     .member-card {

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Join the Applied AI in Business Society (AABS) at Cal State LA and ELAC."
+    />
+    <title>Join Us — Applied AI in Business Society (AABS)</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon_io/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon_io/favicon-16x16.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;600&family=Syne:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <img src="img/aabs_logo.png" alt="AABS Logo" style="height: 42px; width: 42px; object-fit: contain;" />
+        AABS
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#focus">Focus Areas</a></li>
+        <li><a href="index.html#team">Leadership</a></li>
+        <li><a href="index.html#projects">Initiatives</a></li>
+        <li>
+          <a href="index.html" class="nav-cta">Back to Main Site</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main style="padding-top: 120px; padding-bottom: 80px;">
+      <section style="padding: 40px 24px;">
+        <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+          <div class="section-tag">Membership Application</div>
+          <h2>Join the <em>Applied AI in Business Society</em></h2>
+          <p style="color: var(--text-dim); max-width: 560px; margin: 0 auto 32px; font-size: 14px; line-height: 1.8;">
+            Complete this form to get connected with AABS. We welcome students from all academic majors across Cal State LA and ELAC.
+          </p>
+        </div>
+
+        <div class="join-page-container">
+          <!-- LEFT PANEL: Application Form -->
+          <div class="join-panel">
+            <h3 style="font-family: 'Syne', sans-serif; font-size: 18px; color: var(--gold); margin-bottom: 24px; font-weight: 700;">
+              Student Member Registration
+            </h3>
+
+            <form
+              id="joinForm"
+              action="https://formspree.io/f/mlgpbwvd"
+              method="POST"
+            >
+              <input type="text" name="_gotcha" style="display: none" />
+
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="Full Name"
+                  class="form-control"
+                  placeholder="Jane Doe"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">University Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="Email"
+                  class="form-control"
+                  placeholder="jdoe@student.calstatela.edu"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="major">Major / Field of Study</label>
+                <input
+                  type="text"
+                  id="major"
+                  name="Major"
+                  class="form-control"
+                  placeholder="e.g. Computer Information Systems, Finance, CS"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="year">Academic Year</label>
+                <select id="year" name="Academic Year" class="form-control" required>
+                  <option value="" disabled selected>Select your year</option>
+                  <option value="Freshman">Freshman</option>
+                  <option value="Sophomore">Sophomore</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Senior">Senior</option>
+                  <option value="Graduate Student">Graduate Student</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="interest">Primary Interest</label>
+                <select id="interest" name="Primary Interest" class="form-control" required>
+                  <option value="" disabled selected>How would you like to get involved?</option>
+                  <option value="Local Business Projects">Working directly with local businesses</option>
+                  <option value="Technical AI Projects">Hands-on AI & technical projects</option>
+                  <option value="Club Operations & Marketing">Club operations, marketing & events</option>
+                  <option value="Workshops & Learning">Attending workshops & networking events</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                id="submitBtn"
+                class="btn-primary"
+                style="width: 100%; margin-top: 12px; padding: 16px;"
+              >
+                Submit Application
+              </button>
+            </form>
+
+            <div
+              id="joinSuccess"
+              style="
+                display: none;
+                padding: 16px;
+                text-align: center;
+                color: var(--gold);
+                border: 1px solid var(--gold);
+                background: var(--gold-dim);
+                font-size: 13px;
+                margin-top: 20px;
+                border-radius: 2px;
+              "
+            >
+              Thank you for applying! Your registration has been received. We will follow up via email with meeting details and project placement.
+            </div>
+
+            <div
+              id="joinError"
+              style="
+                display: none;
+                padding: 16px;
+                text-align: center;
+                color: #df5f5f;
+                border: 1px solid rgba(223, 95, 95, 0.3);
+                background: rgba(223, 95, 95, 0.1);
+                font-size: 13px;
+                margin-top: 20px;
+                border-radius: 2px;
+              "
+            >
+              There was an issue submitting your form. Please try again or reach out to appliedaicsula@gmail.com directly.
+            </div>
+          </div>
+
+          <!-- RIGHT PANEL: Connect & Socials -->
+          <div class="join-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 style="font-family: 'Syne', sans-serif; font-size: 18px; color: var(--gold); margin-bottom: 20px; font-weight: 700;">
+                Connect with AABS
+              </h3>
+              <p style="color: var(--text-dim); font-size: 13px; line-height: 1.8; margin-bottom: 24px;">
+                After submitting your application, connect with us on LinkedIn to stay updated on project releases, guest speaker sessions, and campus events.
+              </p>
+
+              <div style="background: var(--bg); border: 1px solid var(--border2); padding: 24px; border-radius: 4px; margin-bottom: 24px;">
+                <div style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px;">Official LinkedIn Page</div>
+                <div style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 12px;">AABS Cal State LA</div>
+                <a
+                  href="https://www.linkedin.com/in/aabs-csula-9b88b2424/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-primary"
+                  style="display: inline-block; font-size: 11px; padding: 10px 20px;"
+                >
+                  Connect on LinkedIn &rarr;
+                </a>
+              </div>
+
+              <div style="background: var(--bg); border: 1px solid var(--border2); padding: 24px; border-radius: 4px;">
+                <div style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px;">Direct Contact</div>
+                <div style="color: var(--text-dim); font-size: 13px; line-height: 1.7;">
+                  Have questions about partnership opportunities or technical projects?<br />
+                  Email us at <a href="mailto:appliedaicsula@gmail.com" style="color: var(--gold); text-decoration: none;">appliedaicsula@gmail.com</a>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border2); font-size: 12px; color: var(--text-dim);">
+              AABS welcomes students from Cal State LA & ELAC across all academic disciplines.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-brand">
+        AABS
+        <span>Applied AI in Business Society</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://www.instagram.com/saiescsula/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li>
+          <a
+            href="https://calstatela.presence.io/organization/society-for-ai-in-enterprise-systems"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Presence</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.linkedin.com/in/aabs-csula-9b88b2424/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </li>
+        <li><a href="mailto:appliedaicsula@gmail.com">Contact</a></li>
+      </ul>
+      <div class="footer-copy">&copy; 2026 AABS. All rights reserved.</div>
+    </footer>
+
+    <script>
+      const APPS_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbx768v3yugq5GSvxOYyS97NtPg2u2_vqmB4QkhQu68-aR-zW_BCnYWhblNRmTEnbVCm/exec";
+
+      document
+        .getElementById("joinForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const form = e.target;
+          const btn = document.getElementById("submitBtn");
+          const originalBtnText = btn.textContent;
+
+          btn.textContent = "Submitting...";
+          btn.disabled = true;
+          document.getElementById("joinError").style.display = "none";
+
+          const formData = new FormData(form);
+
+          try {
+            fetch(APPS_SCRIPT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              body: formData,
+            });
+
+            const data = Object.fromEntries(formData.entries());
+            const response = await fetch(form.action, {
+              method: form.method,
+              body: JSON.stringify(data),
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            });
+
+            if (response.ok) {
+              form.style.display = "none";
+              const successDiv = document.getElementById("joinSuccess");
+              successDiv.style.display = "block";
+            } else {
+              throw new Error("Form submission error");
+            }
+          } catch (error) {
+            document.getElementById("joinError").style.display = "block";
+            btn.textContent = originalBtnText;
+            btn.disabled = false;
+          }
+        });
+    </script>
+  </body>
+</html>
