@@ -68,10 +68,11 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-family: "Syne", sans-serif;
       font-weight: 800;
       font-size: 16px;
+      line-height: 1;
       letter-spacing: 0.1em;
       color: var(--gold);
       text-transform: uppercase;
@@ -79,8 +80,9 @@
     }
 
     .nav-logo img {
-      height: 36px;
-      width: 36px;
+      height: 42px;
+      width: 42px;
+      flex-shrink: 0;
       object-fit: contain;
       vertical-align: middle;
     }
@@ -1113,8 +1115,8 @@
       }
 
       .nav-logo img {
-        height: 32px;
-        width: 32px;
+        height: 38px;
+        width: 38px;
       }
 
       .ticker-wrap {
