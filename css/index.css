@@ -845,20 +845,39 @@
       margin-top: 48px;
     }
 
-    .team-grid-bottom {
-      display: flex;
-      justify-content: center;
-      margin-top: 2px;
+    .team-grid-leadership {
+      grid-template-areas:
+        "helian brian danny"
+        "ivan michael jared"
+        ". lizzie .";
     }
 
-    .team-grid-bottom .member-card {
-      width: calc(33.333% - 1.33px);
+    .member-helian {
+      grid-area: helian;
     }
 
-    @media (max-width: 900px) {
-      .team-grid-bottom .member-card {
-        width: 100%;
-      }
+    .member-danny {
+      grid-area: danny;
+    }
+
+    .member-brian {
+      grid-area: brian;
+    }
+
+    .member-michael {
+      grid-area: michael;
+    }
+
+    .member-ivan {
+      grid-area: ivan;
+    }
+
+    .member-jared {
+      grid-area: jared;
+    }
+
+    .member-lizzie {
+      grid-area: lizzie;
     }
 
     .member-card {
@@ -1106,17 +1125,20 @@
         display: none;
         flex-direction: column;
         gap: 0;
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: 100%;
         left: 0;
         right: 0;
-        bottom: 0;
+        height: calc(100vh - 64px);
+        height: calc(100dvh - 64px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
         background: rgba(8, 11, 16, 0.97);
         backdrop-filter: blur(20px);
         z-index: 99;
         justify-content: center;
         align-items: center;
-        padding: 80px 24px 40px;
+        padding: 24px;
       }
 
       .nav-links.open {
@@ -1143,12 +1165,17 @@
       .nav-hamburger {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 5px;
         cursor: pointer;
         z-index: 101;
         background: none;
         border: none;
-        padding: 4px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        touch-action: manipulation;
       }
 
       .nav-hamburger span {
@@ -1209,13 +1236,29 @@
         grid-template-columns: 1fr;
       }
 
-      .team-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .team-grid-leadership {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .team-grid-bottom {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 100%;
+      .team-grid-leadership > .member-card {
+        grid-area: auto;
+        padding: clamp(18px, 4vw, 28px);
+      }
+
+      .team-grid-leadership > .member-helian,
+      .team-grid-leadership > .member-michael,
+      .team-grid-leadership > .member-lizzie {
+        grid-column: 2 / span 2;
+      }
+
+      .team-grid-leadership > .member-danny,
+      .team-grid-leadership > .member-ivan {
+        grid-column: 1 / span 2;
+      }
+
+      .team-grid-leadership > .member-brian,
+      .team-grid-leadership > .member-jared {
+        grid-column: 3 / span 2;
       }
 
       .hero-logo {

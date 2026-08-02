@@ -61,7 +61,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;600&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/index.css?v=20260801" />
   </head>
 
   <body>
@@ -83,7 +83,7 @@
       <button
         class="nav-hamburger"
         id="hamburger"
-        aria-label="Toggle menu"
+        aria-label="Open menu"
         aria-controls="navLinks"
         aria-expanded="false"
         onclick="toggleMenu()"
@@ -305,6 +305,7 @@
         const isOpen = navLinks.classList.toggle("open");
         hamburger.classList.toggle("open", isOpen);
         hamburger.setAttribute("aria-expanded", String(isOpen));
+        hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
         document.body.style.overflow = isOpen ? "hidden" : "";
       }
 
@@ -314,11 +315,16 @@
         navLinks.classList.remove("open");
         hamburger.classList.remove("open");
         hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Open menu");
         document.body.style.overflow = "";
       }
 
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeMenu();
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) closeMenu();
       });
 
       const APPS_SCRIPT_URL =

@@ -65,7 +65,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/index.css?v=20260801" />
   </head>
 
   <body>
@@ -90,7 +90,7 @@
       <button
         class="nav-hamburger"
         id="hamburger"
-        aria-label="Toggle menu"
+        aria-label="Open menu"
         aria-controls="navLinks"
         aria-expanded="false"
         onclick="toggleMenu()"
@@ -298,13 +298,12 @@
         </h2>
         <div class="divider fade-up" style="transition-delay: 0.15s"></div>
 
-        <!-- TOP ROW: 3 Leaders -->
-        <div class="team-grid">
+        <div class="team-grid team-grid-leadership">
           <a
             href="https://www.linkedin.com/in/helian-parra-86b358277/"
             target="_blank"
             rel="noopener noreferrer"
-            class="member-card fade-up"
+            class="member-card member-helian fade-up"
             style="transition-delay: 0.1s"
           >
             <div class="member-avatar">HP</div>
@@ -314,10 +313,25 @@
           </a>
 
           <a
+            href="https://www.linkedin.com/in/daniel-ramirez-erpai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="member-card member-danny fade-up"
+            style="transition-delay: 0.2s"
+          >
+            <div class="member-avatar">DR</div>
+            <div class="member-name">Daniel Ramirez</div>
+            <div class="member-role">Vice President</div>
+            <div class="member-major">
+              Finance + Business Intelligence, Graduate Student (MSIS)
+            </div>
+          </a>
+
+          <a
             href="https://www.linkedin.com/in/brian-ta-/"
             target="_blank"
             rel="noopener noreferrer"
-            class="member-card fade-up"
+            class="member-card member-brian fade-up"
             style="transition-delay: 0.15s"
           >
             <div class="member-avatar">BT</div>
@@ -329,41 +343,10 @@
           </a>
 
           <a
-            href="https://www.linkedin.com/in/daniel-ramirez-erpai/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="member-card fade-up"
-            style="transition-delay: 0.2s"
-          >
-            <div class="member-avatar">DR</div>
-            <div class="member-name">Daniel Ramirez</div>
-            <div class="member-role">Vice President</div>
-            <div class="member-major">
-              Finance + Business Intelligence, Graduate Student (MSIS)
-            </div>
-          </a>
-        </div>
-
-        <!-- MIDDLE ROW: 3 Officers -->
-        <div class="team-grid" style="margin-top: 2px;">
-          <a
-            href="https://www.linkedin.com/in/ivan-herrera-30a6343aa/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="member-card fade-up"
-            style="transition-delay: 0.25s"
-          >
-            <div class="member-avatar">IH</div>
-            <div class="member-name">Ivan Herrera</div>
-            <div class="member-role">Secretary</div>
-            <div class="member-major">Finance, Senior</div>
-          </a>
-
-          <a
             href="https://www.linkedin.com/in/michael-gonzalez-763b7828a"
             target="_blank"
             rel="noopener noreferrer"
-            class="member-card fade-up"
+            class="member-card member-michael fade-up"
             style="transition-delay: 0.3s"
           >
             <div class="member-avatar">MG</div>
@@ -373,10 +356,23 @@
           </a>
 
           <a
+            href="https://www.linkedin.com/in/ivan-herrera-30a6343aa/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="member-card member-ivan fade-up"
+            style="transition-delay: 0.25s"
+          >
+            <div class="member-avatar">IH</div>
+            <div class="member-name">Ivan Herrera</div>
+            <div class="member-role">Secretary</div>
+            <div class="member-major">Finance, Senior</div>
+          </a>
+
+          <a
             href="https://www.linkedin.com/in/j-194b43413"
             target="_blank"
             rel="noopener noreferrer"
-            class="member-card fade-up"
+            class="member-card member-jared fade-up"
             style="transition-delay: 0.35s"
           >
             <div class="member-avatar">JM</div>
@@ -384,11 +380,7 @@
             <div class="member-role">Committee Chair</div>
             <div class="member-major">Computer Information Systems, Senior</div>
           </a>
-        </div>
-
-        <!-- BOTTOM ROW: Centered Lizzie Reyes Card -->
-        <div class="team-grid-bottom">
-          <div class="member-card fade-up" style="transition-delay: 0.4s">
+          <div class="member-card member-lizzie fade-up" style="transition-delay: 0.4s">
             <div class="member-avatar">LR</div>
             <div class="member-name">Lizzie Reyes</div>
             <div class="member-role">Marketing Director</div>
@@ -639,6 +631,7 @@
         const isOpen = navLinks.classList.toggle("open");
         hamburger.classList.toggle("open", isOpen);
         hamburger.setAttribute("aria-expanded", String(isOpen));
+        hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
         document.body.style.overflow = isOpen ? "hidden" : "";
       }
 
@@ -648,6 +641,7 @@
         navLinks.classList.remove("open");
         hamburger.classList.remove("open");
         hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Open menu");
         document.body.style.overflow = "";
       }
 
@@ -656,6 +650,10 @@
 
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeMenu();
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 900) closeMenu();
         });
 
         const observer = new IntersectionObserver(
