@@ -1160,8 +1160,15 @@
       }
 
       .nav-links li:last-child a {
-        border-bottom: none;
         margin-top: 24px;
+      }
+
+      .nav-links li:last-child a:not(.nav-cta) {
+        border-bottom: none;
+      }
+
+      .nav-links li:last-child .nav-cta {
+        border: 1px solid var(--gold);
       }
 
       .nav-hamburger {
