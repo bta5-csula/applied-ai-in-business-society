@@ -1954,7 +1954,9 @@ export default function App() {
                 border: `1px solid ${C.border}`,
                 borderRadius: 12,
                 padding: 20,
-                height: isMobile ? 300 : 460,
+                height: isMobile
+                  ? 300
+                  : "clamp(300px, calc(100vh - 420px), 460px)",
                 overflowY: "auto",
                 display: "flex",
                 flexDirection: "column",
@@ -2143,8 +2145,9 @@ export default function App() {
                 letterSpacing: "0.04em",
               }}
             >
-              Enter sends. Shift+Enter adds a new line. Do not submit confidential,
-              personal, or sensitive business information.
+              Enter sends. Shift+Enter adds a new line. Questions are processed by
+              Google Gemini. Do not submit personal, confidential, or sensitive
+              information.
             </div>
           </div>
         )}

@@ -2450,7 +2450,9 @@ export default function App() {
                 border: `1px solid ${T.border}`,
                 borderRadius: 10,
                 padding: 20,
-                height: isMobile ? 300 : 500, // Shorter on mobile to fit viewport
+                height: isMobile
+                  ? 300
+                  : "clamp(300px, calc(100vh - 420px), 500px)",
                 overflowY: "auto",
                 display: "flex",
                 flexDirection: "column",
@@ -2630,8 +2632,9 @@ export default function App() {
                 letterSpacing: "0.04em",
               }}
             >
-              Enter sends. Shift+Enter adds a new line. Do not submit confidential,
-              personal, or sensitive business information.
+              Enter sends. Shift+Enter adds a new line. Questions are processed by
+              Google Gemini. Do not submit personal, confidential, or sensitive
+              information.
             </div>
           </div>
         )}
