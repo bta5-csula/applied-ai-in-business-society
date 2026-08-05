@@ -561,9 +561,21 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
+
+    .projects-grid > :last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      width: calc(50% - 8px);
+      justify-self: center;
+    }
+
     @media (max-width: 900px) {
       .projects-grid {
         grid-template-columns: 1fr;
+      }
+
+      .projects-grid > :last-child:nth-child(odd) {
+        grid-column: auto;
+        width: 100%;
       }
     }
 

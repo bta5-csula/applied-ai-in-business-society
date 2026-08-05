@@ -499,23 +499,8 @@
             </a>
           </div>
 
-          <!-- CARD 4: TechFlow NexCore Terminal -->
+          <!-- CARD 4: LedgerLens Tax Intelligence -->
           <div class="fade-up" style="transition-delay: 0.35s">
-            <a href="techflow_project_v2/dist/index.html" class="project-card">
-              <div class="project-status">VERSION: 2.0</div>
-              <span class="project-tag">Finance // AI Lab</span>
-              <div class="project-title">
-                TechFlow NexCore <em>Analytics Terminal</em>
-              </div>
-              <p class="project-desc">
-                Refined B2B order-to-cash analytics terminal. Features a robust viewport layout, forensic audit flagging, and AI query tools.
-              </p>
-              <div class="project-link">Launch Project &rarr;</div>
-            </a>
-          </div>
-
-          <!-- CARD 5: LedgerLens Tax Intelligence -->
-          <div class="fade-up" style="transition-delay: 0.4s">
             <a href="ledger_lens_project/dist/index.html" class="project-card">
               <div class="project-status">VERSION: 1.0</div>
               <span class="project-tag">Tax // AI Lab</span>
@@ -529,8 +514,38 @@
             </a>
           </div>
 
-          <!-- CARD 6: Audit Analytics Terminal -->
+          <!-- CARD 5: TechFlow Analytics Dashboard -->
+          <div class="fade-up" style="transition-delay: 0.4s">
+            <a href="techflow_project_v1/dist/index.html" class="project-card">
+              <div class="project-status">VERSION: 1.0</div>
+              <span class="project-tag">Finance // AI Lab</span>
+              <div class="project-title">
+                TechFlow <em>Analytics Dashboard</em>
+              </div>
+              <p class="project-desc">
+                FY 2019 B2B order-to-cash dashboard with customer payment-risk scoring, product margin analysis, and a Gemini-powered AI analyst.
+              </p>
+              <div class="project-link">Launch Project &rarr;</div>
+            </a>
+          </div>
+
+          <!-- CARD 6: TechFlow NexCore Terminal -->
           <div class="fade-up" style="transition-delay: 0.45s">
+            <a href="techflow_project_v2/dist/index.html" class="project-card">
+              <div class="project-status">VERSION: 2.0</div>
+              <span class="project-tag">Finance // AI Lab</span>
+              <div class="project-title">
+                TechFlow NexCore <em>Analytics Terminal</em>
+              </div>
+              <p class="project-desc">
+                Refined B2B order-to-cash analytics terminal. Features a robust viewport layout, forensic audit flagging, and AI query tools.
+              </p>
+              <div class="project-link">Launch Project &rarr;</div>
+            </a>
+          </div>
+
+          <!-- CARD 7: Audit Analytics Terminal -->
+          <div class="fade-up" style="transition-delay: 0.5s">
             <a href="audit_analytics_project/dist/index.html" class="project-card">
               <div class="project-status">VERSION: 1.0</div>
               <span class="project-tag">Forensic // AI Lab</span>
@@ -682,7 +697,12 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        renderEvents();
+        renderEvents().finally(() => {
+          const hashTarget = document.getElementById(window.location.hash.slice(1));
+          if (hashTarget) {
+            requestAnimationFrame(() => hashTarget.scrollIntoView({ block: "start" }));
+          }
+        });
 
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeMenu();

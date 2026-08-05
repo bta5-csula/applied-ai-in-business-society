@@ -1157,7 +1157,7 @@ export default function App() {
             }}
           >
             <a
-              href="https://society-for-ai-in-enterprise-systems.vercel.app/index.html#projects"
+              href="https://applied-ai-in-business-society.vercel.app/index.html#projects"
               style={{
                 textDecoration: "none",
                 color: "#818cf8",

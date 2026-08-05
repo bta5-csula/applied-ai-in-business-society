@@ -33,7 +33,7 @@ export default function App() {
 
   const backButton = (
     <a
-      href="https://society-for-ai-in-enterprise-systems.vercel.app/index.html#projects"
+      href="https://applied-ai-in-business-society.vercel.app/index.html#projects"
       className="back-btn"
     >
       <ArrowLeft size={14} />

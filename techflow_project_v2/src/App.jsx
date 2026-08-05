@@ -1021,7 +1021,7 @@ export default function App() {
               On desktop this is hidden here; the real one is in the right section below. */}
           {isMobile && (
             <a
-              href="https://society-for-ai-in-enterprise-systems.vercel.app/index.html#projects"
+              href="https://applied-ai-in-business-society.vercel.app/index.html#projects"
               style={{
                 textDecoration: "none",
                 color: T.accent,
@@ -1094,7 +1094,7 @@ export default function App() {
           >
             {/* BACK BUTTON (Top Row) */}
             <a
-              href="https://society-for-ai-in-enterprise-systems.vercel.app/index.html#projects"
+              href="https://applied-ai-in-business-society.vercel.app/index.html#projects"
               style={{
                 textDecoration: "none",
                 color: T.accent,
