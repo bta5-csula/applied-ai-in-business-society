@@ -780,13 +780,6 @@ const QUICK_PROMPTS = [
   "Summarize payment behavior patterns",
 ];
 
-const AI_SYSTEM = `You are a sharp financial analyst for TechFlow Industries (FY 2023 B2B bike manufacturer, $128.5M revenue, 23 customers, 5,000 transactions, US+Germany).
-Key stats: 76.7% late payments, avg 61.5 days over terms for late payers, 37.4% gross margin, 89.6% transactions flagged, 263 SOD violations, 155 threshold avoidance cases.
-High-risk customers: Chain Reaction Ltd (172 avg days, 100% late), Crest Cycle Co (154 days, 100%), Velocity Supply (172 days, 100%), Gearhead Supply (163 days, 100%).
-Top revenue: RideRight Supply $6.28M, Gravity Sports $6.06M, Velocity Supply $6.08M.
-Best product: Elite Road Bike $21.4M (45.3% margin). Worst margin: Carbon Fiber Frame 31.3%, Gravel Explorer 35.9%.
-Respond in 3–5 punchy bullets using • as bullet character. Cite exact numbers. No filler.`;
-
 const TABS = [
   "Overview",
   "Customers",
@@ -813,6 +806,7 @@ export default function App() {
   const [aiStage, setAiStage] = useState("");
   const [aiPct, setAiPct] = useState(0);
   const chatRef = useRef(null);
+  const chatInputRef = useRef(null);
   const timerRefs = useRef([]);
   // Responsive breakpoint — mirrors V1 approach
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -846,8 +840,8 @@ export default function App() {
     const q = (text || chatInput).trim();
     if (!q || chatLoading) return;
 
-    // 1. Reset UI and trigger progress stages
     setChatInput("");
+    if (chatInputRef.current) chatInputRef.current.style.height = "42px";
     setChatMsgs((prev) => [...prev, { role: "user", content: q }]);
     setChatLoading(true);
     setAiPct(5);
@@ -859,50 +853,27 @@ export default function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt: `System: You are a sharp financial analyst for TechFlow Industries. FY 2023 data. Answer in 3–5 punchy bullet points.\n\nContext: ${AI_SYSTEM}\n\nQuestion: ${q}`,
+          feature: "techflow-2023",
+          userInput: q,
         }),
       });
 
-      if (!res.ok) throw new Error(`Server error ${res.status}`);
-
-      const d = await res.json();
-      let finalReply = "No response.";
-
-      // 2.1. Robust extraction from the response object 'd'
-      if (typeof d === "string") {
-        try {
-          const parsed = JSON.parse(d);
-          finalReply = parsed.text || parsed.reply || d;
-        } catch {
-          finalReply = d;
-        }
-      } else if (d && typeof d === "object") {
-        finalReply = d.text || d.reply || d.message || JSON.stringify(d);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const error = new Error(data.error || "The AI service could not complete the request.");
+        error.status = res.status;
+        throw error;
       }
 
-      // 2.2. THE CRITICAL FIX: Intercept literal empty JSON strings
-      if (
-        finalReply === '{"text":""}' ||
-        finalReply === '{"reply":""}' ||
-        finalReply === '{"message":""}'
-      ) {
-        finalReply = "";
+      let finalReply = String(data.text || "").trim();
+      if (!finalReply) {
+        throw new Error("The AI service did not produce a response. Please try rephrasing your question.");
+      }
+      if (data.truncated) {
+        finalReply +=
+          "\n\nThis response reached its length limit. Ask for a specific section if you would like more detail.";
       }
 
-      // 2.3. QUOTA / ERROR CHECK
-      // If empty, or returned as specific error strings, use the professional fallback
-      const isErrorOrEmpty =
-        !finalReply ||
-        finalReply === "{}" ||
-        finalReply === "undefined" ||
-        finalReply.toLowerCase().includes("quota exceeded");
-
-      if (isErrorOrEmpty) {
-        finalReply =
-          "AI analyst is unfortunately unavailable for the rest of today.";
-      }
-
-      // 3. Finalize UI animations
       timerRefs.current.forEach(clearTimeout);
       setAiPct(100);
       setAiStage("Done");
@@ -918,7 +889,13 @@ export default function App() {
       timerRefs.current.forEach(clearTimeout);
       setChatMsgs((prev) => [
         ...prev,
-        { role: "assistant", content: "⚠ API error — check your connection." },
+        {
+          role: "assistant",
+          content:
+            err.status === 429
+              ? err.message
+              : err.message || "The AI service is temporarily unavailable. Please try again.",
+        },
       ]);
     } finally {
       setChatLoading(false);
@@ -2584,16 +2561,31 @@ export default function App() {
                 </button>
               ))}
             </div>
-            <div style={{ display: "flex", gap: 10 }}>
-              <input
+            <div style={{ display: "flex", gap: 10, alignItems: "flex-end" }}>
+              <textarea
+                ref={chatInputRef}
+                rows={1}
+                maxLength={12000}
                 value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === "Enter" && !e.shiftKey && sendChat()
-                }
+                onChange={(e) => {
+                  setChatInput(e.target.value);
+                  e.target.style.height = "auto";
+                  e.target.style.height = `${Math.min(e.target.scrollHeight, 112)}px`;
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChat();
+                  }
+                }}
+                disabled={chatLoading}
                 placeholder="Ask anything about the FY 2023 data…"
+                aria-label="Ask the TechFlow 2023 AI analyst"
                 style={{
                   flex: 1,
+                  height: 42,
+                  minHeight: 42,
+                  maxHeight: 112,
                   background: T.bg2,
                   border: `1px solid ${T.border2}`,
                   borderRadius: 8,
@@ -2602,6 +2594,10 @@ export default function App() {
                   color: T.text0,
                   fontFamily: T.font,
                   outline: "none",
+                  lineHeight: 1.45,
+                  resize: "none",
+                  overflowY: "auto",
+                  opacity: chatLoading ? 0.6 : 1,
                 }}
               />
               <button
@@ -2625,6 +2621,17 @@ export default function App() {
               >
                 SEND
               </button>
+            </div>
+            <div
+              style={{
+                fontSize: 9,
+                lineHeight: 1.5,
+                color: T.text2,
+                letterSpacing: "0.04em",
+              }}
+            >
+              Enter sends. Shift+Enter adds a new line. Do not submit confidential,
+              personal, or sensitive business information.
             </div>
           </div>
         )}

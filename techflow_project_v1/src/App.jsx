@@ -905,6 +905,7 @@ export default function App() {
   const [aiStage, setAiStage] = useState("");
   const [aiPct, setAiPct] = useState(0);
   const chatRef = useRef(null);
+  const chatInputRef = useRef(null);
   const timerRefs = useRef([]);
 
   useEffect(() => {
@@ -930,98 +931,59 @@ export default function App() {
     const q = (overrideQ || chatInput).trim();
     if (!q || aiLoading) return;
 
-    // 1. Clear input and show user's message immediately
     setChatInput("");
+    if (chatInputRef.current) chatInputRef.current.style.height = "42px";
     setChatHistory((h) => [...h, { role: "user", text: q }]);
-
-    // 2. Define the data context (The "Brain" of the analyst)
-    const ctx = `TechFlow Industries FY 2019 — B2B Bike Manufacturer, $59.6M revenue, $26.5M profit (44.4% margin).
-Monthly peak: June $12.1M. 23 customers (US + Germany).
-Top customers: Bavaria Bikes $5.48M (ENTERPRISE, pays early), Beantown Bikes $4.07M, Capital Bikes $4.11M.
-Payment: 27% early, 7% on-time, 66% late. Avg days late: 3.3. Worst: Furniture City Bikes (87.2% late, 10.7d avg).
-Top products: Pro Touring Bike-Silver $7.57M, Road Bike Carbon Shimano $7.2M, Deluxe Touring Bike-Silver $7.39M.
-Best margin: Accessories ~55%. Lowest: E-Bike 38.9%.`;
-
-    // 3. Start the loading animations
     setAiLoading(true);
     setAiPct(5);
-    setAiStage("Analyzing data..."); // Changed from 'Receiving' to 'Analyzing' for better feel
+    setAiStage("Analyzing data...");
     runStages();
 
     try {
-      // 1. Double-check that our data isn't empty before sending
-      console.log("Sending to Gemini:", { q, ctxLength: ctx.length });
-
       const res = await fetch(window.location.origin + "/api/gemini", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          // The 'prompt' key must match what your /api/gemini.js expects
-          prompt: `System: You are a sharp financial analyst for TechFlow Industries. 2019 data: 23 customers, 26 products, 5000 transactions. Answer in 3–5 punchy bullet points.\n\nContext: ${ctx}\n\nQuestion: ${q}`,
+          feature: "techflow-2019",
+          userInput: q,
         }),
       });
 
-      // 2. If the server is down or the path is wrong, this jumps to 'catch'
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        const errorData = await res.text(); // Try to read the error message from the server
-        throw new Error(`Server responded with ${res.status}: ${errorData}`);
+        const error = new Error(data.error || "The AI service could not complete the request.");
+        error.status = res.status;
+        throw error;
       }
 
-      const d = await res.json();
-
-      // 1. Log the full object so you can see it in the console (F12)
-      console.log("Gemini Response Object:", d);
-
-      // 2. Extract the text safely. This checks 'text', then 'reply', then gives up.
-      // A more robust extraction that handles almost any API structure
-      let finalReply = "No response.";
-
-      // 2.1. Extract the content
-      if (typeof d === "string") {
-        try {
-          const parsed = JSON.parse(d);
-          finalReply = parsed.text || parsed.reply || d;
-        } catch {
-          finalReply = d;
-        }
-      } else if (d && typeof d === "object") {
-        finalReply = d.text || d.reply || d.message || JSON.stringify(d);
+      let finalReply = String(data.text || "").trim();
+      if (!finalReply) {
+        throw new Error("The AI service did not produce a response. Please try rephrasing your question.");
+      }
+      if (data.truncated) {
+        finalReply +=
+          "\n\nThis response reached its length limit. Ask for a specific section if you would like more detail.";
       }
 
-      // 2.2. THE CRITICAL FIX:
-      // If finalReply is the literal string '{"text":""}', force it to be truly empty
-      if (finalReply === '{"text":""}' || finalReply === '{"reply":""}') {
-        finalReply = "";
-      }
-
-      // 2.3. Final cleanup
-      finalReply = String(finalReply || "").trim();
-
-      // 2.4. ══ QUOTA LIMIT CHECK ══
-      if (!finalReply || finalReply === "{}" || finalReply === "undefined") {
-        finalReply =
-          "AI analyst is unfortunately unavailable for the rest of today.";
-      }
-
-      // 3. UI Cleanup
       timerRefs.current.forEach(clearTimeout);
       setAiPct(100);
       setAiStage("Done");
-
-      // 4. Wait for the progress bar animation to finish
       await new Promise((r) => setTimeout(r, 400));
-
-      // 5. CRITICAL: Use the functional update to prevent state issues
       setChatHistory((prev) => [...prev, { role: "ai", text: finalReply }]);
     } catch (err) {
       console.error("Dashboard AI Error:", err);
       timerRefs.current.forEach(clearTimeout);
       setChatHistory((prev) => [
         ...prev,
-        { role: "ai", text: "⚠️ API error — please check connection." },
+        {
+          role: "ai",
+          text:
+            err.status === 429
+              ? err.message
+              : err.message || "The AI service is temporarily unavailable. Please try again.",
+        },
       ]);
     } finally {
-      // 6. Reset the loading states regardless of success or failure
       setAiLoading(false);
       setAiPct(0);
       setAiStage("");
@@ -2111,15 +2073,31 @@ Best margin: Accessories ~55%. Lowest: E-Bike 38.9%.`;
               ))}
             </div>
 
-            <div style={{ display: "flex", gap: 10 }}>
-              <input
+            <div style={{ display: "flex", gap: 10, alignItems: "flex-end" }}>
+              <textarea
+                ref={chatInputRef}
+                rows={1}
+                maxLength={12000}
                 value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendChat()}
+                onChange={(e) => {
+                  setChatInput(e.target.value);
+                  e.target.style.height = "auto";
+                  e.target.style.height = `${Math.min(e.target.scrollHeight, 112)}px`;
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChat();
+                  }
+                }}
                 disabled={aiLoading}
                 placeholder="Ask anything about TechFlow's 2019 data…"
+                aria-label="Ask the TechFlow 2019 AI analyst"
                 style={{
                   flex: 1,
+                  height: 42,
+                  minHeight: 42,
+                  maxHeight: 112,
                   background: C.card,
                   border: `1px solid ${C.border2}`,
                   borderRadius: 8,
@@ -2128,6 +2106,9 @@ Best margin: Accessories ~55%. Lowest: E-Bike 38.9%.`;
                   color: C.text,
                   fontFamily: C.font,
                   outline: "none",
+                  lineHeight: 1.45,
+                  resize: "none",
+                  overflowY: "auto",
                   opacity: aiLoading ? 0.6 : 1,
                   transition: "opacity 0.15s",
                 }}
@@ -2153,6 +2134,17 @@ Best margin: Accessories ~55%. Lowest: E-Bike 38.9%.`;
               >
                 SEND
               </button>
+            </div>
+            <div
+              style={{
+                fontSize: 9,
+                lineHeight: 1.5,
+                color: C.dim,
+                letterSpacing: "0.04em",
+              }}
+            >
+              Enter sends. Shift+Enter adds a new line. Do not submit confidential,
+              personal, or sensitive business information.
             </div>
           </div>
         )}

@@ -109,9 +109,13 @@
         <div class="input-label">// Describe your system</div>
         <textarea
           id="userInput"
+          maxlength="12000"
           placeholder="e.g. An online store where customers can browse products, add them to a cart, and checkout. Admins can manage inventory and view orders."
         ></textarea>
         <div class="input-hint">Press Cmd/Ctrl + Enter to generate</div>
+        <div class="input-hint">
+          Do not submit confidential, personal, or sensitive business information.
+        </div>
 
         <button class="generate-btn" id="genBtn" onclick="generate()">
           Generate diagram
@@ -209,7 +213,9 @@
       mermaid.initialize({
         startOnLoad: false,
         theme: "default",
-        securityLevel: "loose",
+        securityLevel: "strict",
+        maxTextSize: 20000,
+        maxEdges: 100,
       });
 
       const typeDescriptions = {
@@ -445,6 +451,126 @@ erDiagram
   }
   ENTITY1 ||--o{ ENTITY2 : "has"`,
       };
+
+      const diagramFeatures = {
+        usecase: "diagram-usecase",
+        activity: "diagram-activity",
+        class: "diagram-class",
+        er: "diagram-er",
+      };
+
+      function requireShortText(value, label, maxLength = 120) {
+        if (typeof value !== "string" || !value.trim()) {
+          throw new Error(`Invalid ${label}. Please try a more specific description.`);
+        }
+        const text = value.trim();
+        if (text.length > maxLength) {
+          throw new Error(`${label} is too long. Please simplify the description.`);
+        }
+        return text;
+      }
+
+      function validateUseCaseDiagram(value) {
+        if (!value || typeof value !== "object" || Array.isArray(value)) {
+          throw new Error("The AI returned invalid use-case data. Please try again.");
+        }
+
+        const actors = Array.isArray(value.actors) ? value.actors : null;
+        const usecases = Array.isArray(value.usecases) ? value.usecases : null;
+        const relationships = Array.isArray(value.relationships)
+          ? value.relationships
+          : null;
+
+        if (!actors || !usecases || !relationships) {
+          throw new Error("The AI returned incomplete use-case data. Please try again.");
+        }
+        if (actors.length > 20 || usecases.length > 50 || relationships.length > 100) {
+          throw new Error("The diagram is too complex. Please divide it into smaller systems.");
+        }
+
+        const seenIds = new Set();
+        const normalizedActors = actors.map((actor) => {
+          const id = requireShortText(actor?.id, "actor ID", 40);
+          if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(id) || seenIds.has(id)) {
+            throw new Error("The AI returned an invalid or duplicate actor ID. Please try again.");
+          }
+          seenIds.add(id);
+          return {
+            id,
+            name: requireShortText(actor?.name, "actor name"),
+            side: ["left", "right", "bottom"].includes(actor?.side)
+              ? actor.side
+              : "left",
+            type: actor?.type === "system" ? "system" : "human",
+          };
+        });
+
+        const normalizedUseCases = usecases.map((usecase) => {
+          const id = requireShortText(usecase?.id, "use-case ID", 40);
+          if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(id) || seenIds.has(id)) {
+            throw new Error("The AI returned an invalid or duplicate use-case ID. Please try again.");
+          }
+          seenIds.add(id);
+          return {
+            id,
+            name: requireShortText(usecase?.name, "use-case name"),
+          };
+        });
+
+        const allowedRelationshipTypes = new Set([
+          "association",
+          "include",
+          "extend",
+          "generalization",
+        ]);
+        const normalizedRelationships = relationships.map((relationship) => {
+          const from = requireShortText(relationship?.from, "relationship source", 40);
+          const to = requireShortText(relationship?.to, "relationship target", 40);
+          if (!seenIds.has(from) || !seenIds.has(to) || from === to) {
+            throw new Error("The AI returned an invalid diagram relationship. Please try again.");
+          }
+          if (!allowedRelationshipTypes.has(relationship?.type)) {
+            throw new Error("The AI returned an unsupported relationship type. Please try again.");
+          }
+          return { from, to, type: relationship.type };
+        });
+
+        return {
+          systemName: requireShortText(value.systemName, "system name"),
+          actors: normalizedActors,
+          usecases: normalizedUseCases,
+          relationships: normalizedRelationships,
+        };
+      }
+
+      function validateMermaidCode(code, type) {
+        if (!code || code.length > 20000 || code.split("\n").length > 250) {
+          throw new Error("The generated diagram is too large. Please simplify the description.");
+        }
+
+        const expectedStart = {
+          activity: /^(flowchart|graph)\s+(TD|TB|BT|LR|RL)\b/i,
+          class: /^classDiagram\b/i,
+          er: /^erDiagram\b/i,
+        }[type];
+        if (!expectedStart?.test(code.trim())) {
+          throw new Error("The AI returned the wrong diagram format. Please try again.");
+        }
+
+        const unsafeSyntax = [
+          /^\s*---/m,
+          /%%\s*\{/i,
+          /<\/?[A-Za-z!][^>]*>/,
+          /^\s*(click|callback|link)\b/im,
+          /\b(href|javascript:)\b/i,
+          /\bcall\s+[A-Za-z_$]/i,
+        ];
+        if (unsafeSyntax.some((pattern) => pattern.test(code))) {
+          throw new Error("The generated diagram contained unsupported interactive content. Please try again.");
+        }
+
+        return code;
+      }
 
       function escXml(s) {
         return String(s)
@@ -985,35 +1111,9 @@ erDiagram
         }
       }
 
-      // Rate limiter — max 10 generations per hour per browser
-      const RATE_LIMIT = 10;
-      const RATE_WINDOW = 60 * 60 * 1000;
-      function checkRateLimit() {
-        const now = Date.now();
-        let log = JSON.parse(localStorage.getItem("saies_rate") || "[]");
-        log = log.filter((t) => now - t < RATE_WINDOW);
-        if (log.length >= RATE_LIMIT) {
-          const resetIn = Math.ceil((RATE_WINDOW - (now - log[0])) / 60000);
-          return { allowed: false, resetIn };
-        }
-        log.push(now);
-        localStorage.setItem("saies_rate", JSON.stringify(log));
-        return { allowed: true };
-      }
-
       async function generate() {
         const input = document.getElementById("userInput").value.trim();
         if (!input) return;
-
-        // Check rate limit before doing anything
-        const rate = checkRateLimit();
-        if (!rate.allowed) {
-          const status = document.getElementById("status");
-          status.style.display = "block";
-          status.className = "status error";
-          status.textContent = `// Limit reached — you can generate ${RATE_LIMIT} diagrams per hour. Try again in ${rate.resetIn} minute${rate.resetIn !== 1 ? "s" : ""}.`;
-          return;
-        }
 
         const btn = document.getElementById("genBtn");
         const status = document.getElementById("status");
@@ -1026,15 +1126,15 @@ erDiagram
         startProgress();
 
         const isUseCase = selectedType === "usecase";
-        const userPrompt = isUseCase
-          ? `${typeInstructions.usecase}\n\nUser description: ${input}`
-          : `${typeInstructions[selectedType]}\n\nUser description: ${input}\n\nReturn ONLY the raw Mermaid diagram code. No explanation, no markdown fences, no backticks. Start directly with the diagram type keyword.`;
 
         try {
           const res = await fetch("/api/gemini", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: userPrompt, userInput: input }),
+            body: JSON.stringify({
+              feature: diagramFeatures[selectedType],
+              userInput: input,
+            }),
           });
 
           const data = await res.json();
@@ -1046,7 +1146,7 @@ erDiagram
               .replace(/^```[a-z]*\n?/i, "")
               .replace(/\n?```$/i, "")
               .trim();
-            const diagram = JSON.parse(raw);
+            const diagram = validateUseCaseDiagram(JSON.parse(raw));
             currentCode = JSON.stringify(diagram, null, 2);
             document.getElementById("codeBlock").textContent = currentCode;
             document.getElementById("diagram").innerHTML =
@@ -1056,6 +1156,7 @@ erDiagram
               .replace(/^```[a-z]*\n?/i, "")
               .replace(/\n?```$/i, "")
               .trim();
+            code = validateMermaidCode(code, selectedType);
             currentCode = code;
             document.getElementById("codeBlock").textContent = code;
             const { svg } = await mermaid.render("mermaid-" + Date.now(), code);

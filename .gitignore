@@ -10,3 +10,8 @@ img/saies_logo_icon_original.png
 
 # Node dependencies
 node_modules/
+
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
