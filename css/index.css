@@ -25,6 +25,16 @@
       scroll-behavior: smooth;
     }
 
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--gold2);
+      outline-offset: 3px;
+    }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -291,6 +301,18 @@
 
     .form-control:focus {
       border-color: var(--gold);
+    }
+
+    .form-privacy {
+      margin: 4px 0 8px;
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1.75;
+    }
+
+    .form-privacy a {
+      color: var(--gold2);
+      overflow-wrap: anywhere;
     }
 
     @media (max-width: 900px) {
@@ -1307,6 +1329,25 @@
       .hero-stats {
         flex-wrap: wrap;
         row-gap: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .ticker {
+        transform: none !important;
       }
     }
 

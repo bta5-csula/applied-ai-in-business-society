@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://applied-ai-in-business-society.vercel.app/sitemap.xml

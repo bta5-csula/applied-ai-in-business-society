@@ -380,6 +380,15 @@
         text-decoration: underline;
       }
 
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid var(--gold2);
+        outline-offset: 3px;
+      }
+
       @media (max-width: 700px) {
         nav {
           padding: 16px 24px;
@@ -389,5 +398,20 @@
         }
         .tool-card {
           padding: 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
         }
       }
