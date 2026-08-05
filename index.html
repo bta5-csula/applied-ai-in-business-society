@@ -700,7 +700,12 @@
         renderEvents().finally(() => {
           const hashTarget = document.getElementById(window.location.hash.slice(1));
           if (hashTarget) {
-            requestAnimationFrame(() => hashTarget.scrollIntoView({ block: "start" }));
+            requestAnimationFrame(() => {
+              const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+              document.documentElement.style.scrollBehavior = "auto";
+              hashTarget.scrollIntoView({ block: "start" });
+              document.documentElement.style.scrollBehavior = previousScrollBehavior;
+            });
           }
         });
 
