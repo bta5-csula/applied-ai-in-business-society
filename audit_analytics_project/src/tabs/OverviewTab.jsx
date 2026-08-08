@@ -17,7 +17,8 @@ import {
   Activity,
   ArrowRight
 } from "lucide-react";
-import { useCounter, KPICard, LegDot, BarTip } from "../components/Common";
+import { KPICard, LegDot, BarTip } from "../components/Common";
+import { useCounter } from "../hooks/useCounter";
 import { exceptionData } from "../data/mockData";
 
 export function OverviewTab() {

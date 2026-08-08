@@ -2,7 +2,6 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 
 export default function Tooltip({ text, children, isPrinting }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [leftOffset, setLeftOffset] = useState(0);
   const tooltipRef = useRef(null);
   const triggerRef = useRef(null);
 
@@ -18,9 +17,7 @@ export default function Tooltip({ text, children, isPrinting }) {
         nudge = (window.innerWidth - padding) - tooltipRect.right;
       }
 
-      setLeftOffset(nudge);
-    } else {
-      setLeftOffset(0);
+      tooltipRef.current.style.setProperty('--tooltip-offset', `${nudge}px`);
     }
   }, [isHovered, isPrinting]);
 
@@ -40,7 +37,7 @@ export default function Tooltip({ text, children, isPrinting }) {
           style={{
             position: 'absolute',
             bottom: '100%',
-            left: `calc(50% + ${leftOffset}px)`,
+            left: 'calc(50% + var(--tooltip-offset, 0px))',
             transform: 'translateX(-50%)',
             marginBottom: '8px',
             background: 'var(--bg-card-dark)',
@@ -64,7 +61,7 @@ export default function Tooltip({ text, children, isPrinting }) {
           <div style={{
             position: 'absolute',
             top: '100%',
-            left: `calc(50% - ${leftOffset}px)`,
+            left: 'calc(50% - var(--tooltip-offset, 0px))',
             transform: 'translateX(-50%)',
             borderWidth: '5px',
             borderStyle: 'solid',

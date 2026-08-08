@@ -893,3 +893,33 @@
           scroll-behavior: auto !important;
         }
       }
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 160ms ease-in both aabs-page-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms ease-out both aabs-page-fade-in;
+}
+
+@keyframes aabs-page-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes aabs-page-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

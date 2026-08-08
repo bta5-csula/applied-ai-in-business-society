@@ -19,6 +19,8 @@ import AIMethodStep from "./components/AIMethodStep";
 import PythonCodeStep from "./components/PythonCodeStep";
 import InteractiveDemoStep from "./components/InteractiveDemoStep";
 
+const MotionDiv = motion.div;
+
 const steps = [
   {
     id: 1,
@@ -142,7 +144,7 @@ export default function TaxAIGuide() {
         }}
       />
       {/* Top glowing progress bar - fixed so it never scrolls away */}
-      <motion.div
+      <MotionDiv
         className="screen-only"
         initial={{ width: 0 }}
         animate={{ width: `${progressPercentage}%` }}
@@ -362,7 +364,7 @@ export default function TaxAIGuide() {
               }}
             >
               <AnimatePresence mode="wait">
-                <motion.div
+                <MotionDiv
                   key={activeStep}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -382,7 +384,7 @@ export default function TaxAIGuide() {
                     {steps[activeStep].title}
                   </h2>
                   <ActiveComponent isPrinting={false} />
-                </motion.div>
+                </MotionDiv>
               </AnimatePresence>
             </div>
 

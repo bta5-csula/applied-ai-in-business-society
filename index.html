@@ -158,7 +158,7 @@
             </p>
             <div class="hero-actions">
               <a href="join.html" class="btn-primary">Become a Member</a>
-              <a href="#about" class="btn-outline">Learn More</a>
+              <a href="#about" class="btn-outline" onclick="scrollToAbout(event)">Learn More</a>
             </div>
           </div>
           <img
@@ -694,6 +694,39 @@
         hamburger.setAttribute("aria-expanded", "false");
         hamburger.setAttribute("aria-label", "Open menu");
         document.body.style.overflow = "";
+      }
+
+      function scrollToAbout(event) {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const target = document.getElementById("about");
+        if (!target) return;
+
+        event.preventDefault();
+        const root = document.documentElement;
+        const previousScrollBehavior = root.style.scrollBehavior;
+        const startY = window.scrollY;
+        const targetY = target.offsetTop;
+        const distance = targetY - startY;
+        const duration = 700;
+        const startTime = performance.now();
+
+        root.style.scrollBehavior = "auto";
+        window.history.pushState(null, "", "#about");
+
+        function animateScroll(currentTime) {
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const easedProgress = 0.5 - Math.cos(Math.PI * progress) / 2;
+          window.scrollTo(0, startY + distance * easedProgress);
+
+          if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+          } else {
+            root.style.scrollBehavior = previousScrollBehavior;
+          }
+        }
+
+        requestAnimationFrame(animateScroll);
       }
 
       document.addEventListener("DOMContentLoaded", () => {
