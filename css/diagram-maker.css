@@ -76,6 +76,20 @@
         gap: 10px;
       }
 
+      .nav-logo-icon {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        object-fit: contain;
+      }
+
+      .nav-logo-wordmark {
+        width: auto;
+        max-width: 90px;
+        height: 27px;
+        object-fit: contain;
+      }
+
       .nav-back-btn {
         background: transparent;
         color: var(--text-dim);
@@ -195,6 +209,7 @@
 
       /* INPUT */
       .input-label {
+        display: block;
         font-size: 10px;
         letter-spacing: 0.2em;
         text-transform: uppercase;

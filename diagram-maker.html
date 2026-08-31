@@ -28,18 +28,22 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/diagram-maker.css?v=20260805" />
+    <link rel="stylesheet" href="css/diagram-maker.css?v=20260831" />
     <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
     <nav>
-      <a href="index.html" class="nav-logo">
+      <a href="index.html" class="nav-logo" aria-label="AABS home">
         <img
-          src="img/aabs_mark_gold_nav.png"
-          alt="AABS circuit-brain emblem"
-          style="height: 42px; width: 42px; object-fit: contain"
+          src="img/aabs-brain-wrench-gold-v2.png"
+          class="nav-logo-icon"
+          alt=""
         />
-        AABS
+        <img
+          src="img/aabs-wordmark-gold-v2.png"
+          class="nav-logo-wordmark"
+          alt="AABS"
+        />
       </a>
       <a href="index.html#projects" class="nav-back-btn">← Back to Projects</a>
     </nav>
@@ -106,7 +110,7 @@
           system. Best for mapping out who does what.
         </div>
 
-        <div class="input-label">// Describe your system</div>
+        <label class="input-label" for="userInput">// Describe your system</label>
         <textarea
           id="userInput"
           maxlength="12000"

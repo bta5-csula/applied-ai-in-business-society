@@ -89,10 +89,18 @@
       text-decoration: none;
     }
 
-    .nav-logo img {
+    .nav-logo-icon {
       height: 42px;
       width: 42px;
       flex-shrink: 0;
+      object-fit: contain;
+      vertical-align: middle;
+    }
+
+    .nav-logo-wordmark {
+      height: 27px;
+      width: auto;
+      max-width: 96px;
       object-fit: contain;
       vertical-align: middle;
     }
@@ -882,10 +890,11 @@
     }
 
     .team-grid-leadership {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       grid-template-areas:
-        "helian brian danny"
-        "ivan michael jared"
-        ". lizzie .";
+        "helian helian brian brian danny danny"
+        "ivan ivan michael michael jared jared"
+        ". kassandra kassandra roger roger .";
     }
 
     .member-helian {
@@ -912,8 +921,12 @@
       grid-area: jared;
     }
 
-    .member-lizzie {
-      grid-area: lizzie;
+    .member-kassandra {
+      grid-area: kassandra;
+    }
+
+    .member-roger {
+      grid-area: roger;
     }
 
     .member-card {
@@ -972,18 +985,39 @@
       color: var(--text-dim);
     }
 
+    .advisor-heading {
+      margin: 64px 0 20px;
+      font-family: "Syne", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      line-height: 1.4;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .advisor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2px;
+    }
+
     .advisor-card {
       padding: 28px;
       background: var(--bg);
       border: 1px solid var(--border);
       transition: border-color 0.6s ease;
-      margin-top: 2px;
       display: flex;
       align-items: center;
       gap: 24px;
       text-decoration: none;
       color: inherit;
       cursor: pointer;
+    }
+
+    .advisor-card .member-avatar {
+      flex-shrink: 0;
+      margin-bottom: 0;
     }
 
     .advisor-card:hover {
@@ -1148,9 +1182,14 @@
         padding: 0 24px;
       }
 
-      .nav-logo img {
+      .nav-logo-icon {
         height: 38px;
         width: 38px;
+      }
+
+      .nav-logo-wordmark {
+        height: 24px;
+        max-width: 84px;
       }
 
       .ticker-wrap {
@@ -1288,20 +1327,20 @@
         padding: clamp(18px, 4vw, 28px);
       }
 
-      .team-grid-leadership > .member-helian,
-      .team-grid-leadership > .member-michael,
-      .team-grid-leadership > .member-lizzie {
-        grid-column: 2 / span 2;
-      }
-
-      .team-grid-leadership > .member-danny,
-      .team-grid-leadership > .member-ivan {
+      .team-grid-leadership > .member-card:nth-child(odd) {
         grid-column: 1 / span 2;
       }
 
-      .team-grid-leadership > .member-brian,
-      .team-grid-leadership > .member-jared {
+      .team-grid-leadership > .member-card:nth-child(even) {
         grid-column: 3 / span 2;
+      }
+
+      .advisor-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .advisor-heading {
+        margin-top: 52px;
       }
 
       .hero-logo {

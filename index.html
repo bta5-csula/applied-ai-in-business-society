@@ -70,9 +70,9 @@
           "url": "https://www.calstatela.edu/"
         },
         "sameAs": [
-          "https://www.instagram.com/saiescsula/",
-          "https://www.linkedin.com/in/aabs-csula-9b88b2424/",
-          "https://calstatela.presence.io/organization/society-for-ai-in-enterprise-systems"
+          "https://www.instagram.com/aabscsula/",
+          "https://www.linkedin.com/in/aabscalstatela/",
+          "https://calstatela.campusgroups.com/feeds?type=club&type_id=35580&tab=about"
         ]
       }
     </script>
@@ -86,20 +86,27 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css?v=20260805" />
+    <link rel="stylesheet" href="css/index.css?v=20260831-3" />
     <script defer src="/_vercel/insights/script.js"></script>
   </head>
 
   <body>
     <!-- NAV -->
     <nav aria-label="Primary navigation">
-      <a href="#home" class="nav-logo"
+      <a href="#home" class="nav-logo" aria-label="AABS home"
         ><img
-          src="img/aabs_mark_gold_nav.png"
+          src="img/aabs-brain-wrench-gold-v2.png"
+          class="nav-logo-icon"
           width="42"
           height="42"
-          alt="AABS circuit-brain emblem"
-        />AABS</a
+          alt=""
+        /><img
+          src="img/aabs-wordmark-gold-v2.png"
+          class="nav-logo-wordmark"
+          width="90"
+          height="30"
+          alt="AABS"
+        /></a
       >
       <ul class="nav-links" id="navLinks">
         <li><a href="#about" onclick="closeMenu()">About</a></li>
@@ -416,40 +423,109 @@
             <div class="member-role">Committee Chair</div>
             <div class="member-major">Computer Information Systems, Senior</div>
           </a>
-          <a
-            href="https://www.linkedin.com/in/lizzie-reyes-179747427?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="member-card member-lizzie fade-up"
+          <div
+            class="member-card member-kassandra fade-up"
             style="transition-delay: 0.4s"
           >
-            <div class="member-avatar">LR</div>
-            <div class="member-name">Lizzie Reyes</div>
+            <div class="member-avatar">KD</div>
+            <div class="member-name">Kassandra Diaz</div>
             <div class="member-role">Marketing Director</div>
-            <div class="member-major">Accounting, Senior</div>
+            <div class="member-major">Psychology, Senior</div>
+          </div>
+
+          <a
+            href="https://www.linkedin.com/in/rogercuevas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="member-card member-roger fade-up"
+            style="transition-delay: 0.45s"
+          >
+            <div class="member-avatar">RC</div>
+            <div class="member-name">Roger Cuevas</div>
+            <div class="member-role">External Relations Manager</div>
+            <div class="member-major">Management, Senior</div>
           </a>
         </div>
 
-        <!-- FACULTY ADVISOR -->
-        <a
-          href="https://www.calstatela.edu/faculty/ming-wang"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="advisor-card fade-up"
-          style="transition-delay: 0.45s; margin-top: 32px;"
-        >
-          <div class="member-avatar" style="flex-shrink: 0">MW</div>
-          <div>
-            <div class="advisor-label">Faculty Advisor</div>
-            <div class="member-name">Dr. Ming Wang</div>
-            <div class="member-role">
-              Department Chair, Computer Information Systems
+        <!-- FACULTY ADVISORS -->
+        <h3 class="advisor-heading fade-up">// Faculty Advisors</h3>
+        <div class="advisor-grid">
+          <a
+            href="https://www.calstatela.edu/faculty/arun-aryal"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="advisor-card fade-up"
+            style="transition-delay: 0.45s"
+          >
+            <div class="member-avatar">AA</div>
+            <div>
+              <div class="advisor-label">Faculty Advisor</div>
+              <div class="member-name">Dr. Arun Aryal</div>
+              <div class="member-role">
+                Department Chair, Computer Information Systems
+              </div>
+              <div class="member-major">
+                Cal State LA, College of Business and Economics
+              </div>
             </div>
-            <div class="member-major">
-              Cal State LA, College of Business and Economics
+          </a>
+
+          <a
+            href="https://www.calstatela.edu/business/facultyprofiles/yves-martin-felker"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="advisor-card fade-up"
+            style="transition-delay: 0.5s"
+          >
+            <div class="member-avatar">YF</div>
+            <div>
+              <div class="advisor-label">Faculty Advisor</div>
+              <div class="member-name">Dr. Yves-Martin Felker</div>
+              <div class="member-role">Professor, Management</div>
+              <div class="member-major">
+                Cal State LA, College of Business and Economics
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+
+          <a
+            href="https://www.calstatela.edu/faculty/jongwook-woo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="advisor-card fade-up"
+            style="transition-delay: 0.55s"
+          >
+            <div class="member-avatar">JW</div>
+            <div>
+              <div class="advisor-label">Faculty Advisor</div>
+              <div class="member-name">Dr. Jongwook Woo</div>
+              <div class="member-role">
+                Professor, Computer Information Systems
+              </div>
+              <div class="member-major">
+                Cal State LA, College of Business and Economics
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="https://www.elac.edu/academics/pathways/balit/business-admin-dept/faculty-staff"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="advisor-card fade-up"
+            style="transition-delay: 0.6s"
+          >
+            <div class="member-avatar">CR</div>
+            <div>
+              <div class="advisor-label">Faculty Advisor</div>
+              <div class="member-name">Dr. Carlos Rodriguez</div>
+              <div class="member-role">
+                Professor, Computer Science / Computer Information Systems
+              </div>
+              <div class="member-major">East Los Angeles College</div>
+            </div>
+          </a>
+        </div>
       </section>
 
       <!-- PROJECTS (INITIATIVES) - 2 PER ROW -->
@@ -591,18 +667,18 @@
         <span>Applied AI in Business Society</span>
       </div>
       <ul class="footer-links">
-        <li><a href="https://www.instagram.com/saiescsula/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.instagram.com/aabscsula/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
         <li>
           <a
-            href="https://calstatela.presence.io/organization/society-for-ai-in-enterprise-systems"
+            href="https://calstatela.campusgroups.com/feeds?type=club&amp;type_id=35580&amp;tab=about"
             target="_blank"
             rel="noopener noreferrer"
-            >Presence</a
+            >The Nest</a
           >
         </li>
         <li>
           <a
-            href="https://www.linkedin.com/in/aabs-csula-9b88b2424/"
+            href="https://www.linkedin.com/in/aabscalstatela/"
             target="_blank"
             rel="noopener noreferrer"
             >LinkedIn</a
@@ -669,7 +745,7 @@
                 line-height: 1.9;
               ">Follow us for the latest on workshops, speaker series, and case competitions announced there first.</div>
               <a
-                href="https://www.instagram.com/saiescsula/"
+                href="https://www.instagram.com/aabscsula/"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn-primary"
@@ -756,26 +832,31 @@
           if (window.innerWidth > 900) closeMenu();
         });
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-              }
-            });
-          },
-          { threshold: 0.1 }
-        );
+        const revealElements = document.querySelectorAll(".fade-up");
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
 
-        document
-          .querySelectorAll(".fade-up")
-          .forEach((el) => observer.observe(el));
+        if ("IntersectionObserver" in window && !prefersReducedMotion) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: 0.12,
+              rootMargin: "0px 0px -8% 0px",
+            }
+          );
 
-        setTimeout(() => {
-          document
-            .querySelectorAll(".fade-up")
-            .forEach((el) => el.classList.add("visible"));
-        }, 1500);
+          revealElements.forEach((el) => observer.observe(el));
+        } else {
+          revealElements.forEach((el) => el.classList.add("visible"));
+        }
 
         const tickerEl = document.querySelector(".ticker");
         const half = document.querySelector(".ticker-half");

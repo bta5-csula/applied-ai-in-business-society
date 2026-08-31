@@ -62,16 +62,17 @@
         text-decoration: none;
         color: var(--text);
       }
-      .nav-logo img {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
+      .nav-logo img.nav-logo-icon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
       }
-      .nav-logo-name {
-        font-family: var(--disp);
-        font-size: 17px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
+
+      .nav-logo img.nav-logo-wordmark {
+        width: auto;
+        max-width: 78px;
+        height: 23px;
+        object-fit: contain;
       }
       .nav-center {
         font-family: var(--mono);

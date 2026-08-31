@@ -12,8 +12,8 @@
 * **Leadership Roster Layout (3-3-1 Layout)**:
   * Top Row (3 Leaders): Helian Parra (President), Brian Ta (Vice President), Daniel Ramirez (Vice President).
   * Middle Row (3 Officers): Ivan Herrera (Secretary), Michael Gonzalez (Treasurer), Jared Mendoza (Committee Chair).
-  * Bottom Row (1 Officer): Lizzie Reyes (Marketing Director) — **Centered beneath middle row**.
-  * Faculty Advisor: Dr. Ming Wang (spaced vertically below officer grid).
+  * Bottom Row (2 Officers): Kassandra Diaz (Marketing Director) and Roger Cuevas (External Relations Manager) — **Centered beneath middle row**.
+  * Faculty Advisors: Dr. Arun Aryal, Dr. Yves-Martin Felker, Dr. Jongwook Woo, and Dr. Carlos Rodriguez (spaced vertically below officer grid).
 * **Initiatives Section**:
   * Restructured into a **2-card per row** grid.
   * Added **Local Business AI & Campus Compute Initiative**.
@@ -46,11 +46,11 @@ To ensure the website remains grounded, authentic, and professional, we conducte
 | :--- | :--- | :--- |
 | **Hero Tag & Header** | Removed "Est. 2025" and "ELAC" from top tag (`Cal State LA Student Organization`) | Clarifies that AABS is officially a Cal State LA student organization; keeps ELAC in body copy as a partner. |
 | **Hero Subtitle Placement** | Reduced `margin-top` on `.hero-sub` from `28px` to `14px` | Moves the description text higher up under the main heading, creating a tighter and more visually pleasing hero composition. |
-| **Leadership Grid** | Centered Lizzie Reyes' Marketing Director card under the middle row (`display: flex; justify-content: center`) | Ensures mathematical symmetry (3 top cards, 3 middle cards, 1 centered bottom card). |
+| **Leadership Grid** | Centered Kassandra Diaz and Roger Cuevas beneath the middle row | Ensures mathematical symmetry (3 top cards, 3 middle cards, 2 centered bottom cards). |
 | **Join Flow (`join.html`)** | Added missing CSS styles (`.join-page-container`, `.join-panel`, `.form-control`) and pointed all CTAs to `join.html` | Fixes unformatted layout on `join.html` and ensures seamless navigation from anywhere on the site. |
 | **Initiative Grid** | Implemented `.projects-grid` with `grid-template-columns: repeat(2, 1fr)` | Provides visual balance and readability across desktop viewports. |
 | **Color System** | Swapped flat dark grey for deep navy base (`#09101d`) with gold (`#c8a96e`) and cyan (`#4dd9c0`) accents | Delivers a premium, business-focused aesthetic while maintaining high contrast. |
-| **LinkedIn Integration** | Updated all social buttons to `https://www.linkedin.com/in/aabs-csula-9b88b2424/` | Directs site visitors to the official active organization page. |
+| **LinkedIn Integration** | Updated all social buttons to `https://www.linkedin.com/in/aabscalstatela/` | Directs site visitors to the official active organization page. |
 
 ---
 
@@ -83,7 +83,7 @@ To ensure the website remains grounded, authentic, and professional, we conducte
 * **Improvements Achieved**:
   1. **Elevated Color Palette**: The shift to deep navy blue (`#09101d`) grounds the business identity more effectively than standard dark grey while retaining gold highlight contrast.
   2. **Structural Clarity**: The 2-column project grid replaces full-width rows, making initiatives easier to scan and compare side-by-side.
-  3. **Balanced Roster**: The 3-3-1 centered officer hierarchy creates a clean visual anchor in the leadership section.
+  3. **Balanced Roster**: The 3-3-2 centered officer hierarchy creates a clean visual anchor in the leadership section.
   4. **Dedicated Conversion Funnel**: The dedicated `join.html` application page accommodates both quick leads and committed applicant submissions with immediate LinkedIn integration.
 
 ---

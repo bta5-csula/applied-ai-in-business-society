@@ -4,7 +4,7 @@ const CONFIG = Object.freeze({
   clubEmail: 'appliedaicsula@gmail.com',
   senderName: 'AABS Membership Team',
   emailSubject: 'Thanks for your interest in AABS',
-  linkedInUrl: 'https://www.linkedin.com/in/aabs-csula-9b88b2424/'
+  linkedInUrl: 'https://www.linkedin.com/in/aabscalstatela/'
 })
 
 const SHEET_HEADERS = Object.freeze([
