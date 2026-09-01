@@ -23,6 +23,33 @@
 
     html {
       scroll-behavior: smooth;
+      scrollbar-color: var(--gold) var(--bg);
+      scrollbar-width: thin;
+    }
+
+    *::-webkit-scrollbar {
+      width: 11px;
+      height: 11px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: var(--bg);
+      border-left: 1px solid var(--border2);
+    }
+
+    *::-webkit-scrollbar-thumb {
+      min-height: 48px;
+      background: linear-gradient(180deg, var(--gold2), var(--gold));
+      border: 3px solid var(--bg);
+      border-radius: 999px;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #f0d69a, var(--gold2));
+    }
+
+    *::-webkit-scrollbar-corner {
+      background: var(--bg);
     }
 
     a:focus-visible,
@@ -250,11 +277,12 @@
     }
 
     .hero-logo {
-      width: clamp(300px, 31vw, 440px);
+      width: clamp(340px, 34vw, 480px);
       aspect-ratio: 1;
       object-fit: contain;
       justify-self: start;
-      opacity: 0.82;
+      transform: translateX(-38px);
+      opacity: 1;
     }
 
     .hero-sub {
@@ -1345,7 +1373,8 @@
 
       .hero-logo {
         display: block;
-        width: 240px;
+        width: 260px;
+        transform: translateX(-8px);
       }
 
       .events-header {
