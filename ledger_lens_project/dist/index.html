@@ -13,12 +13,33 @@
     <meta property="og:url" content="https://applied-ai-in-business-society.vercel.app/ledger_lens_project/dist/index.html" />
     <link rel="canonical" href="https://applied-ai-in-business-society.vercel.app/ledger_lens_project/dist/index.html" />
     <title>Ledger Lens | Enterprise AI for Tax Professionals</title>
+    <script>
+      document.documentElement.classList.toggle(
+        "local-file-open",
+        window.location.protocol === "file:",
+      );
+    </script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #0a1520;
+      }
+
+      .local-file-fallback {
+        display: none !important;
+      }
+
+      html.local-file-open .local-file-fallback {
+        display: grid !important;
+      }
+    </style>
     <script type="module" crossorigin src="/ledger_lens_project/dist/assets/index-BQT3sv1V.js"></script>
     <link rel="stylesheet" crossorigin href="/ledger_lens_project/dist/assets/index-CYbWCBE9.css">
   </head>
   <body>
     <div id="root">
-      <main style="min-height:100vh;box-sizing:border-box;display:grid;place-items:center;padding:32px;background:#0a1520;color:#c8dde8;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+      <main class="local-file-fallback" style="min-height:100vh;box-sizing:border-box;place-items:center;padding:32px;background:#0a1520;color:#c8dde8;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
         <section aria-labelledby="local-file-title" style="width:min(620px,100%);box-sizing:border-box;padding:clamp(24px,5vw,44px);border:1px solid #1e3a4a;border-radius:18px;background:#0d1e2a;box-shadow:0 24px 70px rgba(0,0,0,.32);text-align:center">
           <div aria-hidden="true" style="width:54px;height:4px;margin:0 auto 24px;border-radius:999px;background:#e2c074"></div>
           <p style="margin:0 0 10px;color:#5bc8d4;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">LedgerLens Tax Intelligence</p>
