@@ -807,7 +807,7 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 8px;
       align-items: start;
-      transition: grid-template-columns 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: grid-template-columns 0.82s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
     .event-card {
@@ -820,10 +820,9 @@
       text-decoration: none;
       transition:
         border-color 0.25s ease,
-        box-shadow 0.7s ease-in-out,
-        filter 0.75s ease-in-out,
-        opacity 0.75s ease-in-out,
-        transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow 0.32s ease-out,
+        opacity 0.68s ease-out,
+        transform 0.32s ease-out;
     }
 
     .event-card::after {
@@ -852,20 +851,36 @@
       grid-template-rows: 260px 1fr;
       transition:
         border-color 0.25s ease,
-        box-shadow 0.7s ease-in-out,
-        filter 0.75s ease-in-out,
-        grid-template-rows 0.9s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.75s ease-in-out,
-        transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow 0.32s ease-out,
+        grid-template-rows 0.82s cubic-bezier(0.22, 0.61, 0.36, 1),
+        opacity 0.68s ease-out,
+        transform 0.32s ease-out;
     }
 
     .event-card-image {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       border-bottom: 1px solid var(--border2);
       background: #05070a;
+    }
+
+    .event-card-image-flyer {
+      background: #ffde59;
+    }
+
+    .event-card-image-flyer::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: max(1px, 0.4%);
+      background: #ffde59;
+      pointer-events: none;
     }
 
     .event-card-image img {
@@ -984,6 +999,7 @@
       background: transparent;
       color: var(--teal);
       cursor: pointer;
+      touch-action: manipulation;
       font-family: "JetBrains Mono", monospace;
       font-size: 9px;
       letter-spacing: 0.13em;
@@ -1016,7 +1032,7 @@
       outline-offset: 5px;
     }
 
-    @media (hover: hover) and (pointer: fine) {
+    @media (min-width: 901px) and (hover: hover) and (pointer: fine) {
       .events-grid:has(> .event-card-media:nth-child(1):hover) {
         grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.91fr) minmax(0, 0.91fr);
       }
@@ -1026,15 +1042,14 @@
       }
 
       .events-grid:has(> .event-card-media:hover) > .event-card:not(:hover) {
-        filter: saturate(0.82);
-        opacity: 0.8;
+        opacity: 0.84;
       }
 
       .event-card:hover {
         z-index: 2;
         border-color: var(--gold);
-        box-shadow: 0 24px 55px rgba(0, 0, 0, 0.42);
-        transform: translateY(-6px);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.36);
+        transform: translate3d(0, -6px, 0);
       }
 
       .event-card-media:hover {
@@ -1528,6 +1543,20 @@
 
       .events-grid {
         grid-template-columns: 1fr;
+      }
+
+      .event-card-media {
+        grid-template-rows: auto auto;
+      }
+
+      .event-card-image img {
+        width: 100%;
+        height: auto;
+      }
+
+      .event-soundtrack-button {
+        min-height: 44px;
+        padding: 8px 0;
       }
 
       .focus-areas {

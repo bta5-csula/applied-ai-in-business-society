@@ -89,7 +89,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css?v=20260903d" />
+    <link rel="stylesheet" href="css/index.css?v=20260903g" />
     <link rel="stylesheet" href="css/page-transitions.css?v=20260901-2" />
     <script src="js/page-transitions.js?v=20260901-2"></script>
     <script defer src="/_vercel/insights/script.js"></script>
@@ -344,7 +344,7 @@
             rel="noopener noreferrer"
             aria-label="View the Involvement Fair flyer on Instagram"
           >
-            <div class="event-card-image">
+            <div class="event-card-image event-card-image-flyer">
               <img
                 src="img/involvement-fair-2026.png"
                 alt="AABS Involvement Fair flyer for September 2, 2026"
@@ -414,9 +414,14 @@
 
         <audio
           id="storySoundtrack"
-          preload="none"
-          src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/17/f5/3e17f558-aaaf-0471-d6cd-47fc0a3f87e3/mzaf_2509626690092386715.plus.aac.p.m4a"
-        ></audio>
+          preload="metadata"
+          playsinline
+        >
+          <source
+            src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/17/f5/3e17f558-aaaf-0471-d6cd-47fc0a3f87e3/mzaf_2509626690092386715.plus.aac.p.m4a"
+            type="audio/mp4; codecs=mp4a.40.2"
+          />
+        </audio>
       </section>
 
       <!-- TEAM -->
@@ -849,6 +854,15 @@
         }
 
         updateSoundtrackButton(false);
+        openSoundtrack.addEventListener(
+          "pointerdown",
+          () => {
+            if (soundtrack.readyState === HTMLMediaElement.HAVE_NOTHING) {
+              soundtrack.load();
+            }
+          },
+          { passive: true }
+        );
         openSoundtrack.addEventListener("click", async () => {
           if (!soundtrack.paused) {
             soundtrack.pause();
@@ -861,6 +875,7 @@
             updateSoundtrackButton(true);
           } catch (error) {
             updateSoundtrackButton(false);
+            soundtrackLabel.textContent = "Audio unavailable";
             console.error("Soundtrack preview could not play:", error);
           }
         });
