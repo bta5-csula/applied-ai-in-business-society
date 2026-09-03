@@ -89,7 +89,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css?v=20260901-2" />
+    <link rel="stylesheet" href="css/index.css?v=20260903d" />
     <link rel="stylesheet" href="css/page-transitions.css?v=20260901-2" />
     <script src="js/page-transitions.js?v=20260901-2"></script>
     <script defer src="/_vercel/insights/script.js"></script>
@@ -335,7 +335,88 @@
             <h2>Mark your <em>calendar</em></h2>
           </div>
         </div>
-        <div id="eventsContainer"></div>
+
+        <div class="events-grid fade-up" aria-label="AABS events and announcements">
+          <a
+            class="event-card event-card-media"
+            href="https://www.instagram.com/p/DcuFuVPh1rx/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View the Involvement Fair flyer on Instagram"
+          >
+            <div class="event-card-image">
+              <img
+                src="img/involvement-fair-2026.png"
+                alt="AABS Involvement Fair flyer for September 2, 2026"
+                loading="lazy"
+              />
+            </div>
+            <div class="event-card-content">
+              <div class="event-date">September 2, 2026</div>
+              <h3 class="event-title">Involvement Fair</h3>
+              <div class="event-link-label">View flyer ↗</div>
+            </div>
+          </a>
+
+          <article class="event-card event-card-meeting" tabindex="0">
+            <div class="event-date">September 15 &amp; 16, 2026</div>
+            <h3 class="event-title">First General Meeting</h3>
+            <p class="event-desc">
+              Choose the time that works best for you. You only need to attend
+              one session.
+            </p>
+            <div class="event-session-list" aria-label="Meeting session times">
+              <time datetime="2026-09-15T13:45">
+                <strong>Tuesday, September 15</strong>
+                <span>1:45 PM to 2:45 PM</span>
+              </time>
+              <time datetime="2026-09-16T14:00">
+                <strong>Wednesday, September 16</strong>
+                <span>2:00 PM to 3:00 PM</span>
+              </time>
+            </div>
+            <div class="event-location">Location to be announced</div>
+            <div class="event-type">Club Meeting</div>
+          </article>
+
+          <article
+            class="event-card event-card-media"
+          >
+            <div class="event-card-image">
+              <img
+                src="img/involvement-fair-story-recap-2026.png"
+                alt="AABS members welcoming students at the Involvement Fair booth"
+                loading="lazy"
+              />
+            </div>
+            <div class="event-card-content">
+              <div class="event-date">Campus Highlight</div>
+              <h3 class="event-title">Involvement Fair Recap</h3>
+              <div class="event-card-actions">
+                <a
+                  class="event-link-label"
+                  href="https://www.instagram.com/aabscsula/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Visit Instagram ↗</a>
+                <button
+                  class="event-soundtrack-button"
+                  type="button"
+                  id="openSoundtrack"
+                >
+                  <span class="event-soundtrack-icon" aria-hidden="true">▶</span>
+                  <span class="event-soundtrack-label">Play soundtrack</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <audio
+          id="storySoundtrack"
+          preload="none"
+          src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/17/f5/3e17f558-aaaf-0471-d6cd-47fc0a3f87e3/mzaf_2509626690092386715.plus.aac.p.m4a"
+        ></audio>
       </section>
 
       <!-- TEAM -->
@@ -695,74 +776,6 @@
     </footer>
 
     <script>
-      async function renderEvents() {
-        const container = document.getElementById("eventsContainer");
-        if (!container) return;
-
-        let EVENTS = [];
-        try {
-          const response = await fetch("events.json");
-          if (response.ok) {
-            EVENTS = await response.json();
-          }
-        } catch (error) {
-          console.error("Failed to load events:", error);
-        }
-
-        if (EVENTS.length === 0) {
-          container.innerHTML = `
-            <div style="
-              border: 1px solid var(--border);
-              background: var(--bg);
-              padding: 64px 48px;
-              text-align: center;
-              position: relative;
-              overflow: hidden;
-            ">
-              <div style="
-                position: absolute; top: 0; left: 0; right: 0; height: 2px;
-                background: linear-gradient(90deg, transparent, var(--gold), transparent);
-                opacity: 0.5;
-              "></div>
-              <div style="font-size: 32px; margin-bottom: 20px; opacity: 0.25;">⬡</div>
-              <div style="
-                font-family: 'Syne', sans-serif;
-                font-weight: 700;
-                font-size: 11px;
-                letter-spacing: 0.25em;
-                text-transform: uppercase;
-                color: var(--teal);
-                margin-bottom: 16px;
-              ">// Stay in the loop</div>
-              <div style="
-                font-family: 'Cormorant Garamond', serif;
-                font-size: clamp(24px, 3vw, 36px);
-                font-weight: 300;
-                color: var(--text);
-                margin-bottom: 12px;
-                line-height: 1.2;
-              ">Events announced on <em style="font-style:italic; color:var(--gold);">Instagram</em></div>
-              <div style="
-                font-size: 12px;
-                color: var(--text-dim);
-                max-width: 420px;
-                margin: 0 auto 36px;
-                line-height: 1.9;
-              ">Follow us for the latest on workshops, speaker series, and case competitions announced there first.</div>
-              <a
-                href="https://www.instagram.com/aabscsula/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-primary"
-                style="display: inline-flex; align-items: center; gap: 10px;"
-              >
-                Follow on Instagram
-              </a>
-            </div>
-          `;
-        }
-      }
-
       function toggleMenu() {
         const navLinks = document.getElementById("navLinks");
         const hamburger = document.getElementById("hamburger");
@@ -817,17 +830,56 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        renderEvents().finally(() => {
-          const hashTarget = document.getElementById(window.location.hash.slice(1));
-          if (hashTarget) {
-            requestAnimationFrame(() => {
-              const previousScrollBehavior = document.documentElement.style.scrollBehavior;
-              document.documentElement.style.scrollBehavior = "auto";
-              hashTarget.scrollIntoView({ block: "start" });
-              document.documentElement.style.scrollBehavior = previousScrollBehavior;
-            });
+        const soundtrack = document.getElementById("storySoundtrack");
+        const openSoundtrack = document.getElementById("openSoundtrack");
+        const soundtrackIcon = openSoundtrack.querySelector(
+          ".event-soundtrack-icon"
+        );
+        const soundtrackLabel = openSoundtrack.querySelector(
+          ".event-soundtrack-label"
+        );
+
+        function updateSoundtrackButton(isPlaying) {
+          openSoundtrack.classList.toggle("is-playing", isPlaying);
+          openSoundtrack.setAttribute("aria-pressed", String(isPlaying));
+          soundtrackIcon.textContent = isPlaying ? "❚❚" : "▶";
+          soundtrackLabel.textContent = isPlaying
+            ? "Pause soundtrack"
+            : "Play soundtrack";
+        }
+
+        updateSoundtrackButton(false);
+        openSoundtrack.addEventListener("click", async () => {
+          if (!soundtrack.paused) {
+            soundtrack.pause();
+            updateSoundtrackButton(false);
+            return;
+          }
+
+          try {
+            await soundtrack.play();
+            updateSoundtrackButton(true);
+          } catch (error) {
+            updateSoundtrackButton(false);
+            console.error("Soundtrack preview could not play:", error);
           }
         });
+        soundtrack.addEventListener("ended", () => updateSoundtrackButton(false));
+        soundtrack.addEventListener("pause", () => updateSoundtrackButton(false));
+
+        window.addEventListener("pagehide", () => {
+          soundtrack.pause();
+        });
+
+        const hashTarget = document.getElementById(window.location.hash.slice(1));
+        if (hashTarget) {
+          requestAnimationFrame(() => {
+            const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = "auto";
+            hashTarget.scrollIntoView({ block: "start" });
+            document.documentElement.style.scrollBehavior = previousScrollBehavior;
+          });
+        }
 
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeMenu();
